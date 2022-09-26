@@ -1,0 +1,18 @@
+---
+layout: default
+title: 搭建邮箱服务器
+---
+
+<h2>{{ page.title }}</h2>
+<pre>
+docker run -d \
+-p 4080:80 -p 4443:443 -p 4025:25 -p 4110:110 -p 4143:143 -p 4465:465 -p 4587:587 -p 4993:993 -p 4995:995 -p 4190:4190 \
+-e TZ=Asia/Shanghai \
+-v /data/mail_data:/data \
+--name "mailserver" \
+-h "mail.wxtech.com" \
+--restart=always \
+-t analogic/poste.io
+</pre>
+
+<p>{{ page.date | date_to_string }}</p>
