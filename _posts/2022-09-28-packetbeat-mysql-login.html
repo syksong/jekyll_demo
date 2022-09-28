@@ -1,0 +1,98 @@
+---
+layout: default
+title: 搭建邮箱服务器
+---
+
+<h2>{{ page.title }}</h2>
+<pre>
+
+https://dev.mysql.com/doc/dev/mysql-server/latest/page_protocol_basics.html
+https://wenku.baidu.com/view/128b9ccc1ae8b8f67c1cfad6195f312b3169eb65.html
+
+In the command phase, the client sends a command packet with the sequence-id [00]:
+Data between client and server is exchanged in packets of max 16MByte size.
+
+https://segmentfault.com/a/1190000038549577
+https://blog.csdn.net/weixin_33928467/article/details/89984188
+https://dev.mysql.com/doc/internals/en/connection-phase-packets.html
+
+
+
+4              capability flags, CLIENT_PROTOCOL_41 always  set
+4              max-packet size
+1              character  set
+string [23]     reserved (all [0])
+string [NUL]    username
+   if  capabilities &amp; CLIENT_PLUGIN_AUTH_LENENC_CLIENT_DATA {
+lenenc- int      length of auth-response
+string [n]      auth-response
+   }  else  if  capabilities &amp; CLIENT_SECURE_CONNECTION {
+1              length of auth-response
+string [n]      auth-response
+   }  else  {
+string [NUL]    auth-response
+   }
+   if  capabilities &amp; CLIENT_CONNECT_WITH_DB {
+string [NUL]    database
+   }
+   if  capabilities &amp; CLIENT_PLUGIN_AUTH {
+string [NUL]    auth plugin name
+   }
+   if  capabilities &amp; CLIENT_CONNECT_ATTRS {
+lenenc- int      length of all key-values
+lenenc-str     key
+lenenc-str     value
+    if -more data  in  'length of all key-values' , more keys and value pairs
+   }
+-----------
+code
+
+
+
+    //start := 0
+    //query := ""
+    dbnamePos := m.start
+    //uint16
+    clientCapb1 := binary.LittleEndian.Uint16(s.data[m.start+4 : m.start+6])
+    clientCapb2 := binary.LittleEndian.Uint16(s.data[m.start+6 : m.start+8])
+    //clientCapb1
+    var flag_CLIENT_CONNECT_WITH_DB uint16 = 8
+    var flag_CLIENT_PROTOCOL_41 uint16 = 512
+    //clientCapb2
+    var flag_CLIENT_PLUGIN_AUTH_LENENC_CLIENT_DATA uint16 = 16
+
+    //have flag_CLIENT_PROTOCOL_41
+    if ! ((clientCapb1 &amp; flag_CLIENT_PROTOCOL_41) == 0) {
+        //have flag_CLIENT_CONNECT_WITH_DB
+        if ! ((clientCapb1 &amp; flag_CLIENT_CONNECT_WITH_DB) == 0) {
+            //have flag_CLIENT_PLUGIN_AUTH_LENENC_CLIENT_DATA
+            if ! ((clientCapb2 &amp; flag_CLIENT_PLUGIN_AUTH_LENENC_CLIENT_DATA) == 0) {
+                //head and unused str
+                dbnamePos = dbnamePos + (13 + 23)
+                //username len
+                dbnamePos = dbnamePos + getStrLenFromByte(s.data,dbnamePos)
+                dbnamePos = dbnamePos + 1 + int(s.data[dbnamePos])
+                m.query = string(s.data[dbnamePos:dbnamePos+getStrLenFromByte(s.data,dbnamePos)-1])
+            } else {
+                m.query = "dbdomore"
+            }
+
+        } else {
+            m.query = string("nodb")
+        }
+    } else {
+        if ! ((clientCapb1 &amp; flag_CLIENT_CONNECT_WITH_DB) == 0) {
+            if ! ((clientCapb2 &amp; flag_CLIENT_PLUGIN_AUTH_LENENC_CLIENT_DATA) == 0) {
+                m.query = "dbdomore"
+            } else {
+                m.query = "dbdomore"
+            }
+        } else {
+            m.query = string("nodb")
+        }
+    }
+
+
+</pre>
+
+<p>{{ page.date | date_to_string }}</p>
