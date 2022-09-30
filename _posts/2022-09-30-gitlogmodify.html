@@ -1,0 +1,41 @@
+---
+layout: default
+title: git log 信息修改 
+---
+
+<h2>{{ page.title }}</h2>
+<pre>
+<xmp>
+
+git log modify
+
+
+默认情况下，使用
+git rebase -i commit-id 命令时，
+commit-id可以是除了根提交以外的所有提交，但是如果使用
+git rebase -i --root 命令，就可以直接抵达根提交，这样之后的操作就和普通的交互式变基一模一样了
+
+
+
+687  git clone http://10.254.222.83/zt/Cc.git
+688  ls
+689  cd Cc/
+690  ls
+691  git branch -a
+692  git checkout dev
+693  git log
+711  git rebase -i 5c131fbd9ec186f8fafaa4b38617ecc9595dcd24
+712  git commit --amend --author="niuxiaoxu niuxiaoxu@cmdi.com.cn" --no-edit
+713  git rebase --continue
+714  git commit --amend --author="niuxiaoxu niuxiaoxu@cmdi.com.cn" --no-edit
+715  git rebase --continue
+716  git commit --amend --author="niuxiaoxu niuxiaoxu@cmdi.com.cn" --no-edit
+717  git rebase --continue
+718  git push origin HEAD:dev  --force
+
+
+
+</xmp>
+</pre>
+
+<p>{{ page.date | date_to_string }}</p>
