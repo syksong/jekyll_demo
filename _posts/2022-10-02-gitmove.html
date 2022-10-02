@@ -1,0 +1,52 @@
+---
+layout: default
+title: git 仓库迁移 
+---
+
+<h2>{{ page.title }}</h2>
+<pre>
+<xmp>
+
+
+gitlab库迁移
+
+一、作用
+把在 A 托管平台的仓库完全的迁移到 B 托管平台，保留 commit 历史记录。
+二、场景
+将 Gitlab 上的仓库迁移到 GitHub
+将 Coding 上的仓库迁移到 GitHub
+将 Gitee 上的仓库迁移到 GitHub
+……
+迁移前后，保留 commit 历史记录，即在迁移后的新仓库中能查询历史提交信息，同时也能保留小绿点。
+三、步骤
+建立新仓库
+克隆旧仓库
+推送新仓库
+下面，以 Coding 迁移到 GitHub 为例。
+A. Git Bash操作
+在 GitHub 建立新仓库
+在 GitHub 中新建一个同名项目(不同名也可以)，不要添加 README.md，以及任何 License 和 .gitignore 文件，只需要新建一个空的仓库。
+只需要一个空的仓库。
+2. 克隆 Coding 上的项目
+将 Coding 上想要迁移的项目完整克隆到本地。
+本地执行
+bash
+git clone https://git.coding.net/wenyuan/blog.git --bare
+3. 将克隆下来的仓库推送到GitHub
+克隆完成后，将仓库推送到 GitHub。
+使用新仓库页面提供的仓库地址(web URL)，推送所有的分支和对象
+bash
+cd blog.git
+git push https://github.com/wenyuan/blog.git --all
+4. 完成后，再执行推送所有的Tags
+bash
+git push https://github.com/wenyuan/blog.git --tags
+这样，整个仓库就全部迁移到 GitHub 了，如果这些commit中的邮箱在GitHub配置中，可以看到小绿点也一起迁移过来了。
+————————————————
+版权声明：本文为CSDN博主「weixin_39608118」的原创文章，遵循CC 4.0 BY-SA版权协议，转载请附上原文出处链接及本声明。
+原文链接：https://blog.csdn.net/weixin_39608118/article/details/114171069
+
+</xmp>
+</pre>
+
+<p>{{ page.date | date_to_string }}</p>
