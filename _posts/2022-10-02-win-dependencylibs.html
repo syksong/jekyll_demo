@@ -1,0 +1,17 @@
+---
+layout: default
+title: windows 查询库依赖 
+---
+
+<h2>{{ page.title }}</h2>
+<pre>
+<xmp>
+
+1、在vs的菜单-工具-命令行；
+2、cd到dll所在目录；
+3、输入命令：dumpbin /dependents myDll.dll；
+
+</xmp>
+</pre>
+
+<p>{{ page.date | date_to_string }}</p>

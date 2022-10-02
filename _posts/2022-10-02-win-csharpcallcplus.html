@@ -1,0 +1,94 @@
+---
+layout: default
+title: windows csharp call cplus 
+---
+
+<h2>{{ page.title }}</h2>
+<pre>
+<xmp>
+
+c#调用c++封装
+
+
+
+==========
+1，C#调用
+==========
+_ = new NeighborStart(mapPath, paramsPath, resPath, coverData, layerNum);
+------------
+2，Neighbor.h
+--------------
+#pragma once
+#include "MCTools.h"
+#include "NRNeighbourAlgNew.h"
+namespace Neighbor {
+  public ref class NeighborStart {
+    public:
+      Neighbor::NeighborStart(System::String^ map, System::String^ params, System::String^ res, System::String^ cover, int Num);
+  };
+}
+---------
+2.1 c#-->c++入参
+2.1.1，MCTools.h
+-----------
+#pragma once
+#include <math.h>
+#include <vector>
+#include <map>
+#include<crtdbg.h>
+#include <iostream>
+#include <string>
+#include <stdio.h>
+#include <tchar.h>
+#include<stdlib.h>
+using namespace std;
+void MarshalString (System::String ^ s, string& os );
+
+----------
+2.1.2，MCTool.cpp
+----------
+#include "MCTools.h"
+void MarshalString (System::String ^ s, string& os ) {
+using namespace System::Runtime::InteropServices;
+const char* chars =
+(const char*)(Marshal::StringToHGlobalAnsi(s)).ToPointer();
+os = chars;
+Marshal::FreeHGlobal(System::IntPtr((void*)chars));
+}
+
+
+--------------
+2.2，调用C++ dll库
+2.2.1，NRNeighbourAlgNew.h
+-------------------
+class NRNeighbourAlgNew
+{
+AdjacencyValue N_Adjacency;
+MutualValue N_Mutual;
+ForceInfo N_Force;
+vector<ExceptInfo> N_Except;
+public:
+NRNeighbourAlgNew();
+NRNeighbourAlgNew(string mapPath, string paramsPath, string resPath, string coverData, int layerNum);
+~NRNeighbourAlgNew();
+
+};
+------------
+2.2.2，Neighbor.cpp
+------------
+#include "Neighbor.h"
+namespace Neighbor{
+    NeighborStart::NeighborStart(System::String^ map, System::String^ params, System::String^ res, System::String^ cover, int Num) {
+      string mapPath,paramsPath,resPath,coverData;
+      MarshalString(map, mapPath);
+      MarshalString(params, paramsPath);
+      MarshalString(res, resPath);
+      MarshalString(cover, coverData);
+      NRNeighbourAlgNew work(mapPath, paramsPath, resPath, coverData, Num);
+    }
+};
+
+</xmp>
+</pre>
+
+<p>{{ page.date | date_to_string }}</p>

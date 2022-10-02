@@ -1,0 +1,53 @@
+---
+layout: default
+title: windows 杂项
+---
+
+<h2>{{ page.title }}</h2>
+<pre>
+<xmp>
+
+git下载文件名大问题
+https://blog.csdn.net/jason_jiahongfei/article/details/122165588
+git error: unable to create file Filename too long
+
+解决方案办法：
+git config --global core.longpaths true
+-------------------------------------------
+
+window excel文档操作 NPOI
+http://t.zoukankan.com/dyllove98-p-3241515.html
+-------------------------------------------
+
+windows取消笔记本键盘
+administrator enter powershell
+input cmd
+sc config i8042prt start= disabled
+sc config i8042prt start= auto
+
+-------------------------------------------
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+
+namespace  Controller
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+
+            Controller.ControllerExe(args[0]);
+        }
+    }
+}
+
+
+</xmp>
+</pre>
+
+<p>{{ page.date | date_to_string }}</p>

@@ -1,0 +1,16 @@
+---
+layout: default
+title: windows 查看进程 
+---
+
+<h2>{{ page.title }}</h2>
+<pre>
+<xmp>
+
+wmic process where name="alg.exe" get commandline,parentprocessid,processid,status,sessionid,threadcount,handle,executionstate
+process where name="apcclient.exe" get commandline,parentprocessid,processid,status,sessionid,threadcount,handle,executionstate
+
+</xmp>
+</pre>
+
+<p>{{ page.date | date_to_string }}</p>
