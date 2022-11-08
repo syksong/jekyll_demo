@@ -1,0 +1,73 @@
+---
+layout: default
+title: 已有git代码入新gitlab库
+---
+
+
+<h2>{{ page.title }}</h2>
+<pre>
+
+$ cat .git/config
+[core]
+        repositoryformatversion = 0
+        filemode = false
+        bare = false
+        logallrefupdates = true
+        symlinks = false
+        ignorecase = true
+[remote "origin"]
+        url = http://10.254.222.38/vasoyn/APCClient.git
+        fetch = +refs/heads/*:refs/remotes/origin/*
+[branch "master"]
+        remote = origin
+        merge = refs/heads/master
+
+wx@DESKTOP-VVM0ROP MINGW64 ~/Desktop/apcclient/APCClient (master)
+$ vi .git/config
+
+wx@DESKTOP-VVM0ROP MINGW64 ~/Desktop/apcclient/APCClient (master)
+$ git push -u origin master
+warning: ----------------- SECURITY WARNING ----------------
+warning: | TLS certificate verification has been disabled! |
+warning: ---------------------------------------------------
+warning: HTTPS connections may not be secure. See https://aka.ms/gcmcore-tlsverify for more information.
+warning: ----------------- SECURITY WARNING ----------------
+warning: | TLS certificate verification has been disabled! |
+warning: ---------------------------------------------------
+warning: HTTPS connections may not be secure. See https://aka.ms/gcmcore-tlsverify for more information.
+warning: ----------------- SECURITY WARNING ----------------
+warning: | TLS certificate verification has been disabled! |
+warning: ---------------------------------------------------
+warning: HTTPS connections may not be secure. See https://aka.ms/gcmcore-tlsverify for more information.
+Enumerating objects: 14501, done.
+Counting objects: 100% (14501/14501), done.
+Delta compression using up to 16 threads
+Compressing objects: 100% (8562/8562), done.
+Writing objects: 100% (14501/14501), 1.86 GiB | 22.56 MiB/s, done.
+Total 14501 (delta 7885), reused 11727 (delta 5611), pack-reused 0
+remote: Resolving deltas: 100% (7885/7885), done.
+To http://192.168.1.6:1080/apc/APCClient.git
+ * [new branch]      master -> master
+Branch 'master' set up to track remote branch 'master' from 'origin'.
+
+wx@DESKTOP-VVM0ROP MINGW64 ~/Desktop/apcclient/APCClient (master)
+$ cat .git/config
+[core]
+        repositoryformatversion = 0
+        filemode = false
+        bare = false
+        logallrefupdates = true
+        symlinks = false
+        ignorecase = true
+[remote "origin"]
+        url = http://192.168.1.6:1080/apc/APCClient.git
+        fetch = +refs/heads/*:refs/remotes/origin/*
+[branch "master"]
+        remote = origin
+        merge = refs/heads/master
+
+wx@DESKTOP-VVM0ROP MINGW64 ~/Desktop/apcclient/APCClient (master)
+
+</pre>
+
+<p>{{ page.date | date_to_string }}</p>
