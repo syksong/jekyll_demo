@@ -1,0 +1,36 @@
+---
+layout: default
+title: 修改docker容器的端口映射
+---
+
+
+<h2>{{ page.title }}</h2>
+<pre>
+
+[root@localhost containers]# ls
+00d1cc3ddae817b0b3ce7f49cfbbe80163b78d6d89502f9ca8c4a78c8bf0b0f0
+16e184d5382351b49e2d03ff8fd861003d53113ffd1adc4939766b8088d9c517
+b0325da4e24a8abfd9d8ad7db527a37a78bc329b3525cd9c2c786464de71d975
+f221bd9c56c58f151501ace2110e0c47dc0afd925a28d938299906e4d0d45dc2
+[root@localhost containers]# cd b0325da4e24a8abfd9d8ad7db527a37a78bc329b3525cd9c2c786464de71d975/
+[root@localhost b0325da4e24a8abfd9d8ad7db527a37a78bc329b3525cd9c2c786464de71d975]# ls
+b0325da4e24a8abfd9d8ad7db527a37a78bc329b3525cd9c2c786464de71d975-json.log  hostconfig.json  mounts
+checkpoints                                                                hostname         resolv.conf
+config.v2.json                                                             hosts            resolv.conf.hash
+[root@localhost b0325da4e24a8abfd9d8ad7db527a37a78bc329b3525cd9c2c786464de71d975]# vi hostconfig.json
+
+PortBindings关键字
+
+
+[root@localhost b0325da4e24a8abfd9d8ad7db527a37a78bc329b3525cd9c2c786464de71d975]# ls
+b0325da4e24a8abfd9d8ad7db527a37a78bc329b3525cd9c2c786464de71d975-json.log  hostconfig.json  mounts
+checkpoints                                                                hostname         resolv.conf
+config.v2.json                                                             hosts            resolv.conf.hash
+[root@localhost b0325da4e24a8abfd9d8ad7db527a37a78bc329b3525cd9c2c786464de71d975]# vi config.v2.json
+
+
+ExposedPorts关键字
+
+</pre>
+
+<p>{{ page.date | date_to_string }}</p>
