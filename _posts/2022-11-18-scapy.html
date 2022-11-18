@@ -1,0 +1,105 @@
+---
+layout: default
+title: 抓包工具
+---
+
+
+<h2>{{ page.title }}</h2>
+<pre>
+https://baijiahao.baidu.com/s?id=1739581363848753547
+
+0.1 Flidder
+
+Fiddler是位于客户端和服务器端的HTTP代理，也是目前最常用的http抓包工具之一 。 它能够记录客户端和服务器之间的所有 HTTP请求，可以针对特定的HTTP请求，分析请求数据、设置断点、调试web应用、修改请求的数据，甚至可以修改服务器返回的数据，功能非常强大，是web调试的利器。
+
+0.2 Httpwatch
+
+火狐浏览器下有著名的httpfox，而HttpWatch则是IE下强大的网页数据分析工具。教程小编也不详述了，找到了一个超级棒的教程！真心很赞
+
+其他浏览器的内置抓包工具
+
+1. Hping
+
+Hping是最受欢迎和免费的抓包工具之一。它允许你修改和发送自定义的ICMP，UDP，TCP和原始IP数据包。此工具由网络管理员用于防火墙和网络的安全审计和测试。
+
+HPing可用于各种平台，包括Windows，MacOs X，Linux，FreeBSD，NetBSD，OpenBSD和Solaris。
+
+2. Ostinato
+
+Ostinato是一个开源和跨平台网络包生成器和分析工具。它带有GUI界面，使其易于使用和理解。它支持Windows，Linux，BSD和Mac OS X平台。您也可以尝试在其他平台上使用它。
+
+该工具支持最常见的标准协议。请参阅下面的支持协议列表
+
+Ethernet/ 802.3 / LLC SNAP
+
+VLAN（with QinQ）
+
+ARP，IPv4，IPv6，IP-in-IP a.k.a IP隧道（6over4,4over6,4over4,6over6）
+
+TCP，UDP，ICMPv4，ICMPv6，IGMP，MLD
+
+任何基于文本的协议（HTTP，SIP，RTSP，NNTP等）
+
+通过使用Ostinato，你可以轻松地修改任何协议的任何字段。这个数据包工具也被称为第二个Wireshark。
+
+3. Scapy
+
+Scapy是另一种不错的交互式数据包处理工具。这个工具是用Python编写的。它可以解码或伪造大量协议的数据包。Scapy是一个值得尝试的工具。您可以执行各种任务，包括扫描，跟踪，探测，单元测试，网络发现。
+
+4. Libcrafter
+
+Libcrafter非常类似于Scapy。这个工具是用C ++编写的，使得更容易创建和解码网络数据包。它可以创建和解码大多数一般协议的数据包，捕获数据包和匹配请求或回复。这个工具可以多线程执行各种任务。
+
+5. Yersinia
+
+Yersinia是一个强大的网络渗透测试工具，能够对各种网络协议进行渗透测试。如果你正在寻找抓包工具，你可以试试这个工具。
+
+6. packETH
+
+packETH是另一个数据包处理工具。它是一个Linux GUI的以太网工具。它允许你快速创建和发送数据包序列。与此列表中的其他工具一样，它支持各种协议来创建和发送数据包。你还可以设置数据包数量和数据包之间的延迟，还可以在此工具中修改各种数据包内容。
+
+7. Colasoft Packet Builder
+
+Colasoft Packet Builder也是一个用于创建和编辑网络数据包的免费工具。如果你是网络管理员，你可以使用此工具来测试你的网络。它适用于所有可用版本的Windows操作系统。
+
+8. Bit-Twist
+
+Bit-Twist是一种不太流行但好用的工具，用于在实时流量中重新生成捕获的数据包。它使用tcpdump跟踪文件（.pcap文件）在网络中生成的数据包。它带有跟踪文件编辑器，允许你更改捕获的数据包中的任何特定字段。网络管理员可以使用此工具测试防火墙，IDS和IPS，并对各种网络问题进行故障排除。你可以尝试一下这个工具。
+
+9. Libtins
+
+Libtins也是一个很好的工具，用于制作，发送，嗅探和解析网络数据包。这个工具是用C++编写的。C++开发人员可以扩展此工具的功能，使其更强大，更有效地执行其任务。
+
+10. Netcat
+
+Netcat也是一个流行的工具，可以在TCP或UDP网络中读取和写入数据。它可以创建几乎所有种类的网络连接与端口绑定。
+
+这个工具最初被称为Hobbit，并于1995年发布。
+
+11. WireEdit
+
+WireEdit是一个功能齐全的WYSIWYG网络数据包编辑器。你可以在一个简单的界面中编辑所有的数据包层。这个工具是免费使用的，但你必须联系公司获得使用权。它支持Ethernet, IPv4, IPv6, UDP, TCP, SCTP, ARP, RARP, DHCP, DHCPv6, ICMP, ICMPv6, IGMP, DNS, LLDP, RSVP, FTP, NETBIOS, GRE, IMAP, POP3, RTCP, RTP, SSH, TELNET, NTP, LDAP, XMPP, VLAN, VXLAN, CIFS/SMB v1 (original), BGP, OSPF, SMB3, iSCSI, SCSI, HTTP/1.1, OpenFlow 1.0-1.3, SIP, SDP, MSRP, MGCP, MEGACO (H.248), H.245, H.323, CISCO Skinny, Q.931/H.225, SCCP, SCMG, SS7 ISUP, TCAP, GSM MAP R4, GSM SM-TP, M3UA, M2UA, M2PA, CAPWAP, IEEE 802.11等。
+
+它也是一个多平台工具。它适用于Windows XP和更高版本，Ubuntu桌面和Mac OSX。
+
+12. epb – Ethernet Packet Bombardier
+
+Epb-Ethernet Packet Bombardier也是一个类似的工具。它允许你发送自定义的以太网包。此工具不提供任何GUI，但它是易于使用。
+
+13. Fragroute
+
+Fragroute是一个数据包处理工具，可以拦截，修改和重写网络流量。你可以使用此工具执行大多数网络渗透测试，以检查网络的安全性。这个工具是开源的，并提供命令行界面来使用。它适用于Linux，BSD和Mac OS。
+
+14. Mausezahn
+
+Mausezahn是一个网络数据包编辑器，让你发送每一种网络数据包。此工具用于防火墙和IDS的渗透测试，但你可以在网络中使用此工具来查找安全错误。你还可以使用此工具来测试你的网络在被DOS攻击时是否安全。值得注意的是，它可以让你完全控制NIC卡。它支持ARP, BPDU, or PVST, CDP, LLDP, IP, IGMP, UDP, TCP (stateless), ICMP (partly), DNS, RTP，RTP optionally RX-mode for jitter measurements，Syslog protocols。
+
+15. EIGRP-tools
+
+这是EIGRP数据包生成器和嗅探器组合。它被开发用于测试EIGRP路由协议的安全性。要使用此工具，您要了解第3层EIGRP协议。此工具也是一个具有命令行界面的开源工具。它可用于Linux，Mac OS和BSD平台。
+
+
+
+</pre>
+
+<p>{{ page.date | date_to_string }}</p>
