@@ -1,0 +1,35 @@
+---
+layout: default
+title: 元编程
+---
+
+
+<h2>{{ page.title }}</h2>
+<pre>
+
+
+AST
+quote do
+   defmodule MyModule do
+     def hello, do: "World"
+   end
+end
+
+
+{:defmodule, [context: Elixir, import: Kernel],
+ [3
+    {:__aliases__, [alias: false], [:MyModule]},
+    [do: 
+        {:def, [context: Elixir, import: Kernel],
+               [3
+                  {:hello, [context: Elixir], Elixir},[do: "World"] 
+               ]
+        }
+    ]
+ ]
+}
+
+
+</pre>
+
+<p>{{ page.date | date_to_string }}</p>
