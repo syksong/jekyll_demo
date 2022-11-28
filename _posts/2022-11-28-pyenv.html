@@ -1,0 +1,31 @@
+---
+layout: default
+title: pyhon env for arm
+---
+
+
+<h2>{{ page.title }}</h2>
+<pre>
+
+  wget --no-check-certificate https://bootstrap.pypa.io/pip/3.6/get-pip.py
+  python3 get-pip.py  --trusted-host pypi.org --trusted-host files.pythonhosted.org
+
+cat /root/.pip/pip.conf
+[global]
+index-url = https://pypi.org/simple
+[install]
+trusted-host = pypi.org  files.pythonhosted.org
+
+  pip3 install paho.mqtt
+
+  pip3 install virtualenv
+
+
+mkdir probe
+root@localhost:~# cd probe/
+root@localhost:~/probe# virtualenv  -p /usr/bin/python3 env
+
+
+</pre>
+
+<p>{{ page.date | date_to_string }}</p>
