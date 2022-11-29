@@ -16,15 +16,17 @@ index-url = https://pypi.org/simple
 [install]
 trusted-host = pypi.org  files.pythonhosted.org
 
-  pip3 install paho.mqtt
 
-  pip3 install virtualenv
+ 1019  pip3 install virtualenv
 
 
 mkdir probe
 root@localhost:~# cd probe/
 root@localhost:~/probe# virtualenv  -p /usr/bin/python3 env
 
+ 1044  pip install paho.mqtt
+ 1047  pip install pyzmq
+ 1068  pip install pyinstaller
 
 </pre>
 
