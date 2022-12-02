@@ -1,0 +1,26 @@
+---
+layout: default
+title: sql leftjoin where
+---
+
+
+<h2>{{ page.title }}</h2>
+<pre>
+
+
+SELECT viewon.*,aresult.`电话`  FROM `viewon` left join aresult 
+on viewon.`联系电话`=aresult.`电话` 
+where 1=1 and aresult.`电话` is not null
+
+
+SELECT viewon.*,aresult.`电话`  FROM `viewon` left join aresult 
+on viewon.`联系电话`=aresult.`电话` 
+where aresult.`电话` is not null
+is ok
+
+
+https://blog.csdn.net/muxiaoshan/article/details/7617533
+
+</pre>
+
+<p>{{ page.date | date_to_string }}</p>
