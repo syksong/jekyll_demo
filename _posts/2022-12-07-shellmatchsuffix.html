@@ -1,0 +1,33 @@
+---
+layout: default
+title: shell match postfix
+---
+
+
+<h2>{{ page.title }}</h2>
+<pre>
+
+如果文件是 .css文件 或 .js文件，则进行处理。
+
+file=$1
+if [ "${file##*.}"x = "css"x ]||[ "${file##*.}"x = "js"x ];then
+
+    do something
+fi
+
+注意：
+
+1> 提取文件后缀名： ${file##*.}
+    ##是贪婪操作符，从左至右匹配，匹配到最右边的.号，移除包含.号的左边内容。
+
+这里可以参考 http://www.1987.name/264.html
+2> 是=，而且其两边有空格，如果没有空格，会报错
+
+3> 多加了x，是为了防止字符串为空时报错。
+
+————————————————
+原文链接：https://blog.csdn.net/Hellovictoria/article/details/40378907
+
+</pre>
+
+<p>{{ page.date | date_to_string }}</p>

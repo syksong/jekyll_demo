@@ -1,0 +1,27 @@
+---
+layout: default
+title: python3 print as utf8
+---
+
+
+<h2>{{ page.title }}</h2>
+<pre>
+---python3 print error---
+UnicodeEncodeError: 'ascii' codec can't encode character
+
+
+def printRAW(*Text):
+    RAWOut = open(1,'w', encoding='utf8', closefd=False)
+    print(*Text, file=RAWOut)
+    RAWOut.flush()
+    RAWOut.close()
+
+printRAW('aaaaaaa')
+#exit(0)
+
+
+https://segmentfault.com/q/1010000042820602?utm_source=sf-similar-question
+
+</pre>
+
+<p>{{ page.date | date_to_string }}</p>

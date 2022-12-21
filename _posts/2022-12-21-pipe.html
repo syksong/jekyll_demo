@@ -1,0 +1,59 @@
+---
+layout: default
+title: linux pipe to rollback log
+---
+
+
+<h2>{{ page.title }}</h2>
+<pre>
+
+
+cat pylogwriter3.py
+#coding=utf-8
+import sys
+
+
+fout1 = open("./2.1.log","a+")
+fout2 = open("./2.2.log","a+")
+fout1.seek(0,2)
+fout2.seek(0,2)
+
+ftell1=fout1.tell()
+ftell2=fout2.tell()
+print(ftell1)
+print(ftell2)
+if ftell1 > ftell2:
+    fout=fout2
+else:
+    fout=fout1
+count = 0
+while True:
+    line = sys.stdin.readline()
+    fout.write(line)
+    fout.flush()
+    count = count + 1
+    print(count)
+#    if count % 10 == 0:
+#        fout.flush()
+    if count % 10000 == 0:
+        if fout == fout1:
+            print("111111111")
+            fout = fout2
+            fout.seek(0)
+        elif fout == fout2:
+            print("222222222")
+            fout = fout1
+            fout.seek(0)
+
+(env) root@localhost:~/probe/env/probe# cat test.sh
+while [ 1 ];
+do
+date
+echo "aaaaa"
+sleep 1
+done
+(env) root@localhost:~/probe/env/probe# sh test.sh |python3 pylogwriter3.py
+
+</pre>
+
+<p>{{ page.date | date_to_string }}</p>
