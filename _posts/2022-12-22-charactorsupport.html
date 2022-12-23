@@ -1,0 +1,28 @@
+---
+layout: default
+title: python3 print 字符集支持
+---
+
+
+<h2>{{ page.title }}</h2>
+<pre>
+
+locale-gen zh_CN.UTF-8
+Generating locales (this might take a while)...
+  zh_CN.UTF-8... done
+Generation complete.
+
+
+ python
+Python 3.6.9 (default, Nov 25 2022, 14:10:45)
+[GCC 8.4.0] on linux
+Type "help", "copyright", "credits" or "license" for more information.
+>>> import sys
+>>> sys.stdout.encoding
+
+
+export LANG="en_US.UTF-8"
+
+</pre>
+
+<p>{{ page.date | date_to_string }}</p>

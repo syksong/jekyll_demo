@@ -1,0 +1,85 @@
+---
+layout: default
+title: peewee how to
+---
+
+
+<h2>{{ page.title }}</h2>
+<pre>
+
+http://t.zoukankan.com/tester-l-p-8198939.html
+
+https://blog.csdn.net/weixin_43865628/article/details/123731887
+
+
+
+
+$ cat makedb
+sqlite3 example.db << EOM
+CREATE TABLE "user" ("id" INTEGER NOT NULL PRIMARY KEY, "username" TEXT NOT NULL);
+CREATE TABLE "tweet" (
+    "id" INTEGER NOT NULL PRIMARY KEY,
+    "content" TEXT NOT NULL,
+    "timestamp" DATETIME NOT NULL,
+    "user_id" INTEGER NOT NULL,
+    FOREIGN KEY ("user_id") REFERENCES "user" ("id"));
+CREATE UNIQUE INDEX "user_username" ON "user" ("username");
+EOM
+
+
+
+python -m pwiz -e sqlite exam.db>exammodel.py
+
+
+(env)
+wx@DESKTOP-VVM0ROP MINGW64 ~/Desktop/tanzhen/probe/peewee
+$ cat exammodel.py
+from peewee import *
+
+database = SqliteDatabase('exam.db')
+
+class UnknownField(object):
+    def __init__(self, *_, **__): pass
+
+class BaseModel(Model):
+    class Meta:
+        database = database
+
+class User(BaseModel):
+    username = TextField(unique=True)
+    id = AutoField()
+
+    class Meta:
+        table_name = 'user'
+
+class Tweet(BaseModel):
+    content = TextField()
+    timestamp = DateTimeField()
+    user = ForeignKeyField(column_name='user_id', field='id', model=User)
+
+    class Meta:
+        table_name = 'tweet'
+
+
+#psave=User(username='songsh')
+#psave.save()
+
+#pselect=User.get(User.username == 'songsh')
+#print(pselect.id)
+#print(pselect.username)
+
+#pupdate=User.update({User.username:'songyc'}).where(User.id == 2)
+#pupdate.execute()
+
+#psave=User(username='gecy')
+#psave.save()
+
+pdel=User.delete().where(User.id=='3').execute()
+
+(env)
+wx@DESKTOP-VVM0ROP MINGW64 ~/Desktop/tanzhen/probe/peewee
+$ #pytho
+
+</pre>
+
+<p>{{ page.date | date_to_string }}</p>
