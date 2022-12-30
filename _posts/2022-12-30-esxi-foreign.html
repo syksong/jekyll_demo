@@ -1,0 +1,23 @@
+---
+layout: default
+title: esxi disk foreign repair
+---
+
+
+<h2>{{ page.title }}</h2>
+<pre>
+
+https://www.yunweiku.com/forum.php?mod=viewthread&tid=201530
+
+以下是将foreign硬盘导入阵列卡的步骤，请在确保数据备份好的时候操作，仅提供参考。
+
+  今天发现DELL 720系统无法启动接上显示器查看RAID是否有问题；
+  1.开机启动按“Ctrl+R”进入RAID设置。
+  2.进入PD Mgmt中查看故障盘的状态（foreign:外来的，online:正常，missing:磁盘未找到，failed:失败）
+  3.如磁盘状态为foreign，在VD Mgmt界面下，将指标移到最上一行按F2，选择foreign config下的Import。
+   注意！！！绝对不能使用Clear Config
+  4.按照以上操作完成，保存退出重启服务器，系统就可以启动了。
+
+</pre>
+
+<p>{{ page.date | date_to_string }}</p>
