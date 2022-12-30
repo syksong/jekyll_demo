@@ -1,0 +1,43 @@
+---
+layout: default
+title: c++  stream 读取文件并解析
+---
+
+
+<h2>{{ page.title }}</h2>
+<pre>
+
+
+
+nCols 379
+nRows 298
+xllcorner 736339
+yllcorner 2563034
+cellsize 5
+NODATA_value -9999
+
+        ifstream in(FZfile_path);
+        if (!in)
+        {
+            printf("FZ File opening failed, please check the path %s", FZfile_path.c_str());
+            return false;
+        }
+
+        string line;
+
+        in >> line >> cr.nCOls >> line >> cr.nRows >>
+            line >> cr.xllcorner >> line >> cr.yllcorner >> line >> cr.cellsize;
+        cr.nCOls = (int)cr.nCOls; cr.nRows = (int)cr.nRows;
+        cr.xllcorner = (int)cr.xllcorner; cr.yllcorner = (int)cr.yllcorner;
+        cr.cellsize = (int)cr.cellsize;
+
+        in.close();
+        //计算仿真区域范围坐标
+        fzArea.xMin = cr.xllcorner;
+        fzArea.xMax = cr.xllcorner + cr.nCOls * cr.cellsize;
+        fzArea.yMin = cr.yllcorner;
+        fzArea.yMax = cr.yllcorner + cr.nRows * cr.cellsize;
+
+</pre>
+
+<p>{{ page.date | date_to_string }}</p>
