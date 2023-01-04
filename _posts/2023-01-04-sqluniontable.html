@@ -1,0 +1,17 @@
+---
+layout: default
+title: 含union语句创建table
+---
+
+
+<h2>{{ page.title }}</h2>
+<pre>
+
+create table basedataonoff
+(select * from basedataononly)
+union all
+(select * from basedataoffonly)
+
+</pre>
+
+<p>{{ page.date | date_to_string }}</p>
