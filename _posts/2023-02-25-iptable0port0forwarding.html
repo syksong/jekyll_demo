@@ -1,0 +1,15 @@
+---
+layout: default
+title: iptable port fording
+---
+
+
+<h2>{{ page.title }}</h2>
+<pre>
+
+iptables -t nat -A PREROUTING -d 192.168.67.72/32 -p tcp -m tcp --dport 10243 -j DNAT --to-destination 192.166.67.100:10243
+iptables -t nat -A POSTROUTING -d 192.166.67.100/32 -p tcp -m tcp --dport 10243 -j MASQUERADE
+
+</pre>
+
+<p>{{ page.date | date_to_string }}</p>

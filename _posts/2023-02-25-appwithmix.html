@@ -1,0 +1,64 @@
+---
+layout: default
+title: mix创建app
+---
+
+
+<h2>{{ page.title }}</h2>
+<pre>
+
+
+elixir
+iex
+erl
+---
+iex -S mix
+iex(1)> Sample.hello
+hello Elixir
+:world
+----
+mix
+mix escript.build
+mix help
+
+
+
+
+mix escript.build
+---------
+defmodule Sample.MixProject do
+  use Mix.Project
+
+  def project do
+    [
+      app: :sample,
+      version: "0.1.0",
+      elixir: "~> 1.14",
+      escript: escript(),
+      # mix escript.build
+      start_permanent: Mix.env() == :prod,
+      deps: deps()
+    ]
+  end
+
+  def escript do
+    [main_module: Sample]
+  end
+
+end
+##########################
+  def main(args \\ []) do
+    IO.puts "hello"
+    IO.puts args
+  end
+
+
+how to run:
+1)enter cmd
+2)"C:\Program Files\erl-24.3.4.5\bin\escript.exe" ./sample
+hello
+  
+
+</pre>
+
+<p>{{ page.date | date_to_string }}</p>

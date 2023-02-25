@@ -1,0 +1,24 @@
+---
+layout: default
+title: xfs append space
+---
+
+
+<h2>{{ page.title }}</h2>
+<pre>
+
+pvcreate /dev/sdb  #格式化硬盘
+pvs
+
+vgextend vgroup1  /dev/sdb   #sdb加入到vgroup1中
+vgs
+
+lvextend -l +100%free /dev/mapper/centos-root  
+lvs
+
+xfs_growfs /dev/mapper/centos-root 
+df
+
+</pre>
+
+<p>{{ page.date | date_to_string }}</p>

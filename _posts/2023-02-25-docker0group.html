@@ -1,0 +1,41 @@
+---
+layout: default
+title: docker普通用户访问
+---
+
+
+<h2>{{ page.title }}</h2>
+<pre>
+
+执行docker ps命令报下列错误，是没有执行权限
+
+Got permission denied while trying to connect to the Docker daemon socket
+
+解决办法：
+
+1、将当前用户加入到docker用户组中，在该用户下执行
+
+   sudo gpasswd -a ${USER} docker
+
+2、更新用户组
+
+   newgrp docker
+
+3、查看docker用户组成员
+
+   cat/etc/group|grep docker
+
+4、重新启动docker服务
+
+   sudo systemctl restart docker
+
+5、测试docker命令是否可以使用
+
+   docker ps
+
+作者：shenzhao_f9aa
+链接：https://www.jianshu.com/p/23fa40d59227
+
+</pre>
+
+<p>{{ page.date | date_to_string }}</p>
