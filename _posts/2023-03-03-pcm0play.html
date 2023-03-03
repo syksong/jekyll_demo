@@ -1,0 +1,64 @@
+---
+layout: default
+title: pcmplay
+---
+
+
+<h2>{{ page.title }}</h2>
+<pre>
+
+
+
+https://blog.csdn.net/m0_37806112/article/details/84636537
+
+需要在.pro文件中加入multimedia模块，用到了QAudioOutput，先将PCM文件读取到内存，然后进行音频参数设置，最后从内存中定时读取部分数据，调用QIODevice的write函数将这部分数据写入到扬声器。
+
+#include <QtCore/QCoreApplication>
+#include <QAudioFormat>
+#include <QAudioOutput>
+#include <QThread>
+//如何准备pcm数据
+//ffmpeg -i 1080.mp4 -f s16le out.pcm
+
+int main(int argc, char *argv[])
+{
+ QCoreApplication a(argc, argv);
+ //设置采样格式
+ QAudioFormat fmt;
+ fmt.setSampleRate(44100);   //设置采样率
+ fmt.setChannelCount(2);     //设置通道数
+ fmt.setSampleSize(16);      //设置采样大小
+ fmt.setCodec("audio/pcm");  //设置编码方式
+ fmt.setByteOrder(QAudioFormat::LittleEndian); //设置字节序
+ fmt.setSampleType(QAudioFormat::UnSignedInt); //设置样本数据类型
+ QAudioOutput *out = new QAudioOutput(fmt);
+ QIODevice *io = out->start();  //开始播放
+
+ //可运行的大小
+ int size = out->periodSize();
+ char *buf = new char[size];
+
+ FILE *fp = fopen("out.pcm", "rb");
+ while (!feof(fp))
+ {
+  if (out->bytesFree()<size)
+  {
+   QThread::msleep(1);
+   continue;
+  }
+  int len = fread(buf,1,size,fp);
+  if (len<=0)
+  {
+   break;
+  }
+  io->write(buf,len);
+ }
+ fclose(fp);
+ delete buf;
+ buf = 0;
+ return a.exec();
+
+
+</pre>
+
+<p>{{ page.date | date_to_string }}</p>
