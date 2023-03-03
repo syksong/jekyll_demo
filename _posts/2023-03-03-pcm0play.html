@@ -58,6 +58,49 @@ int main(int argc, char *argv[])
  buf = 0;
  return a.exec();
 
+----------
+
+
+int MainWindow::pcmmain()
+{
+    QAudioFormat format;
+    format.setSampleRate(8000);
+    format.setChannelCount(1);
+    format.setSampleSize(16);
+    format.setCodec("audio/pcm");
+    format.setByteOrder(QAudioFormat::LittleEndian);
+    format.setSampleType(QAudioFormat::UnSignedInt);
+
+    QAudioDeviceInfo info = QAudioDeviceInfo::defaultOutputDevice();
+    if (!info.isFormatSupported(format)) {
+        qDebug()<<"default format not supported try to use nearest";
+        //audioFormat = info.nearestFormat(format);
+    }
+
+    QAudioOutput *audio = new QAudioOutput(format,this);
+    QIODevice *io= audio->start();
+
+    int size = audio->periodSize();
+    char * buf =new char[size];
+
+    FILE * fp = fopen("C:/Users/wx/Desktop/AA.bin","rb");
+    while(!feof(fp)){
+        if(audio->bytesFree()<size){
+            QThread::msleep(1);
+            continue;
+        }
+        int len = fread(buf,1,(size_t)size,fp);
+        if(len<=0){
+            break;
+        }
+        io->write(buf,len);
+    }
+    fclose(fp);
+
+    QThread::sleep(5);
+    return 0;
+
+}
 
 </pre>
 
