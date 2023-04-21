@@ -1,0 +1,35 @@
+---
+layout: default
+title: fwknop
+---
+
+
+<h2>{{ page.title }}</h2>
+<pre>
+
+fwknop   
+现在有时间吗？我们也一起说一下spa协议的问题吧
+这个是谢仪頔说的那个fwknop   我们现在做的完整的验证过程就是仿照这个工具来做的
+https://blog.csdn.net/u010617952/article/details/108757602
+#!/bin/bash
+#iptables -A INPUT -p tcp --dport 8888 -j REJCET
+#DPORT=6222
+SRCIP=$1
+DSTIP=$2
+DPORT=$3
+WTIME=$4
+
+echo "打开访问控制"
+echo "iptables -I INPUT 1 -p tcp -s $SRCIP -d $DSTIP --dport $DPORT -j ACCEPT"
+      iptables -I INPUT 1 -p tcp -s $SRCIP -d $DSTIP --dport $DPORT -j ACCEPT
+sleep $WTIME
+echo "关闭访问控制"
+echo "iptables -D INPUT  -p tcp -s $SRCIP -d $DSTIP --dport $DPORT -j ACCEPT"
+      iptables -D INPUT  -p tcp -s $SRCIP -d $DSTIP --dport $DPORT -j ACCEPT
+
+
+
+
+</pre>
+
+<p>{{ page.date | date_to_string }}</p>

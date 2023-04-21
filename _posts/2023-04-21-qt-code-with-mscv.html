@@ -1,0 +1,29 @@
+---
+layout: default
+title: qt mscv code 乱码
+---
+
+
+<h2>{{ page.title }}</h2>
+<pre>
+
+
+https://blog.csdn.net/no_say_you_know/article/details/121694766
+乱码问题概述
+使用Qt的时候，时常会遇到中文乱码问题，qDebug打印日志乱码，或者Widget界面乱码等等。
+
+原因呢，大多是因为使用MSVC编译器问题导致，而Qt 自带的MinGW一般不会出现乱码问题。
+
+核心原因呢，是因为编码问题，即UTF-8和GBK编码千古疑难问题
+
+
+msvc{
+    QMAKE_CFLAGS += /utf-8
+    QMAKE_CXXFLAGS += /utf-8
+}
+
+
+
+</pre>
+
+<p>{{ page.date | date_to_string }}</p>
