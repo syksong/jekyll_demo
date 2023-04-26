@@ -1,0 +1,83 @@
+---
+layout: default
+title: mysql join 多对多
+---
+
+
+<h2>{{ page.title }}</h2>
+<pre>
+
+
+https://betheme.net/qianduan/29038.html?action=onClick
+
+Mysql中左右连接需要注意的问题
+MySQL左连接时,有时会发现返回的记录条数比左边表数量多,这是为什么呢？
+虽然大多情况下是这样：
+count(table A left join table B) == count(table A) ，
+但是，这个结论是错误的，因为一旦table B中有重复的数据时，最后的结果就可能比count(A)的数量多
+
+举个例子：这里有两个表，结构如下
+
+mysql> desc dep;
++--------+---------+------+-----+---------+----------------+
+| Field  | Type    | Null | Key | Default | Extra          |
++--------+---------+------+-----+---------+----------------+
+| id     | int(11) | NO   | PRI | NULL    | auto_increment |
+| dep_no | int(11) | NO   |     | NULL    |                |
++--------+---------+------+-----+---------+----------------+
+2 rows in set (0.03 sec)mysql> desc list;
++----------+----------+------+-----+---------+----------------+
+| Field    | Type     | Null | Key | Default | Extra          |
++----------+----------+------+-----+---------+----------------+
+| id       | int(11)  | NO   | PRI | NULL    | auto_increment |
+| dep_no   | int(11)  | NO   |     | NULL    |                |
+| dep_name | char(20) | YES  |     | NULL    |                |
++----------+----------+------+-----+---------+----------------+
+3 rows in set (0.02 sec)
+向两个表中插入一些数据，如下：
+
+mysql> **select * from dep;**
++----+--------+
+| id | dep_no |
++----+--------+
+|  1 |     11 |
+|  2 |     12 |
+|  3 |     13 |
+|  5 |     14 |
++----+--------+
+4 rows in set (0.01 sec)mysql> select * from list;
++----+--------+----------+
+| id | dep_no | dep_name |
++----+--------+----------+
+|  1 |     11 | egg      |
+|  2 |     12 | water    |
+|  3 |     12 | water    |
+|  4 |     13 | rice     |
+|  5 |     14 | apple    |
++----+--------+----------+
+5 rows in set (0.00 sec)
+注意上面的list表中，id为2和3的记录其实是重复的，然后这时候进行左连接：
+
+mysql> **select * from dep left join list on dep.dep_no = list.dep_no;**
++----+--------+------+--------+----------+
+| id | dep_no | id   | dep_no | dep_name |
++----+--------+------+--------+----------+
+|  1 |     11 |    1 |     11 | egg      |
+|  2 |     12 |    2 |     12 | water    |
+|  2 |     12 |    3 |     12 | water    |
+|  3 |     13 |    4 |     13 | rice     |
+|  5 |     14 |    5 |     14 | apple    |
++----+--------+------+--------+----------+
+5 rows in set (0.01 sec)
+左连接的结果是5条记录，而dep表只有四条记录，推翻了上面的结论，同样的，右连接同样如此。
+
+结论：
+　　左连接和右连接 最终结果的记录数和左表或者右表记录条数不一定相同。
+　　左连接和右连接只是说以匹配的时候以哪个表为准进行搜索，左连接以左表为准，左表的每一条记录都会进行一次比较。
+
+
+
+
+</pre>
+
+<p>{{ page.date | date_to_string }}</p>

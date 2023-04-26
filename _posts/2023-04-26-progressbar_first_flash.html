@@ -1,0 +1,24 @@
+---
+layout: default
+title: qt progressbar 动态加载 第一次闪烁
+---
+
+
+<h2>{{ page.title }}</h2>
+<pre>
+
+
+    //this->progressBar->setBaseSize(1,1);
+    //this->progressBar->setFixedSize(1,1);
+    //this->progressBar->setValue(0);
+    //this->progressBar->update();
+    //this->progressBar->setVisible(true);//disable first flash
+    //this->progressBar->setVisible(false);//disable first flash
+    this->progressBar->setGeometry(1,1,1,1);//disable first flash
+
+
+
+
+</pre>
+
+<p>{{ page.date | date_to_string }}</p>

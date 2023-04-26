@@ -1,0 +1,130 @@
+---
+layout: default
+title: qt子widget接收paint event
+---
+
+
+<h2>{{ page.title }}</h2>
+<pre>
+
+
+https://www.cnblogs.com/leocc325/p/14902580.html
+
+
+如何实现窗口中子控件的绘图(paintEvent())事件
+在重写paintEvent()函数时，这个paintEvent()属于哪个对象，那么就会重新绘制该对象，但是这样也面临着一个问题：
+
+假如我重写了一个mainwindow的paintEvent(),那么该paintEvent只对MainWindow生效，
+
+如果想绘制的图形是在MainWindow上的子的组件应该怎么绘制在哪里绘制？
+
+一般想到的是直接在paintEvent()更改，但是想要在哪个 控件上绘图，就需要在它的 paintEvent() 函数里绘图，对于用Qt designer中编辑的控件，必须新建一个类继承自控件，然后在它的 paintEvent() 里绘图，如果单独就这个问题创建一个新的类就会有点小题大作了
+
+因此可以用事件过滤器来解决这个问题
+
+首先需要在头文件中添加 eventFilter函数，
+
+
+
+class MainWindow : public QMainWindow
+{
+    Q_OBJECT
+protected:
+    bool eventFilter(QObject *watched, QEvent *event) ;
+}
+
+bool MainWindow::eventFilter(QObject *watched, QEvent *event)
+{
+    if(ui->stackedWidget_3->currentIndex() == 1)
+    {
+        if (watched == ui->linkWidget_1 && event->type() == QEvent::Paint)
+        {
+            for(int i = 0;i < linkLinePoints.count();i++)
+            {
+                int x1,y1,x2,y2;
+                x1 = linkLinePoints.at(i).at(0)+10;
+                y1 = linkLinePoints.at(i).at(1)+10;
+                x2 = linkLinePoints.at(i).at(2)+10;
+                y2 = linkLinePoints.at(i).at(3)+10;
+
+                QPainter painter(ui->linkWidget_1 );
+                QPen pen;  // creates a default pen
+                pen.setWidth(3);
+
+                if(i == 0)
+                   pen.setBrush(Qt::black);
+                else if(i == 1)
+                    pen.setBrush(Qt::red);
+                else if(i == 2)
+                    pen.setBrush(Qt::blue);
+                else if(i == 3)
+                    pen.setBrush(Qt::green);
+
+                painter.setPen(pen);
+                painter.drawLine(x1,y1, x2,y2);
+            }
+        }
+    }
+    else if(ui->stackedWidget_3->currentIndex() == 0)
+    {
+        if(watched == ui->linkWidget_2 && event->type() == QEvent::Paint)
+        {
+
+            for(int i = 0;i < linkLinePoints.count();i++)
+            {
+                int x1,y1,x2,y2;
+                x1 = linkLinePoints.at(i).at(0)+10;
+                y1 = linkLinePoints.at(i).at(1)+10;
+                x2 = linkLinePoints.at(i).at(2)+10;
+                y2 = linkLinePoints.at(i).at(3)+10;
+
+                QPainter painter(ui->linkWidget_2 );
+                QPen pen;  // creates a default pen
+                pen.setWidth(3);
+
+                if(i == 0)
+                   pen.setBrush(Qt::black);
+                else
+                    pen.setBrush(Qt::red);
+
+                painter.setPen(pen);
+                painter.drawLine(x1,y1, x2,y2);
+            }
+        }
+    }
+    return QWidget::eventFilter(watched, event);
+}
+
+MainWindow::MainWindow(QWidget *parent) :QMainWindow(parent),ui(new Ui::MainWindow)
+{
+    ui->setupUi(this);
+
+    ui->linkWidget_1->installEventFilter(this);
+    ui->linkWidget_2->installEventFilter(this);
+}
+
+
+MainWindow::MainWindow(QWidget *parent) :QMainWindow(parent),ui(new Ui::MainWindow)
+{
+    ui->setupUi(this);
+
+    ui->linkWidget_1->installEventFilter(this);
+    ui->linkWidget_2->installEventFilter(this);
+}
+
+
+在这个程序中，我分别将两个widget子控件ui->linkWidget_1 和 ui->linkWidget_2 和这个事件关联起来，关联起来之后，在eventfilter函数中，需要注意红色字体代码所在处，要正确关联watch对象和设置painter对象才可正确绘制。
+
+最后，在相应的地方调用upDate函数，即可实现对子控件的绘制。
+
+ 用该方法实现的子控件绘制，不需要重写MainWindow的paintEvent函数，将其删除或者注释掉就行。
+
+需要注意的是，如果控件有了自己的styleSheet，那么再重新实现paintEvent是不会生效的，这两个功能互相冲突。
+
+
+
+
+
+</pre>
+
+<p>{{ page.date | date_to_string }}</p>

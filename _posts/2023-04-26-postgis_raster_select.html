@@ -1,0 +1,53 @@
+---
+layout: default
+title: postgis栅格查询 raster
+---
+
+
+<h2>{{ page.title }}</h2>
+<pre>
+
+
+select rid,ST_Value(rast,1,2,53) from hangzh_col
+2000
+select rid,ST_Value(rast,1,2,53) from hangzh_row
+52660
+
+select rid,ST_Value(rast,1,56,53) from hangzh_col
+55765
+select rid,ST_Value(rast,1,55,53) from hangzh_row
+52660
+
+select * from hangzh_xy 
+where xy='x' 
+and position<793333+1000
+and position>791030
+
+
+2000052660
+select rid,ST_Value(rast,1,50,1) from zhejiang
+
+
+select rid,ST_Value(rast,1,1,1) from zhejiang
+1000 001000
+select rid,ST_Value(rast,1,2,1) from zhejiang
+2000001000
+select rid,ST_Value(rast,1,3,1) from zhejiang
+-1294966296
+select rid,ST_Value(rast,1,50,1) from zhejiang
+select * from zhejiang
+
+select * from raster_columns where r_table_name='hangzh_col'
+
+select rid,(foo.md).* from (select rid,ST_MetaData(rast) as md from hangzh_col) as foo;
+
+select filename,count(*) from hangzh_col
+group by filename
+
+
+
+
+
+</pre>
+
+<p>{{ page.date | date_to_string }}</p>

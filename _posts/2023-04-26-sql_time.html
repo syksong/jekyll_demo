@@ -1,0 +1,27 @@
+---
+layout: default
+title: mysql sql 时间转换 时间戳
+---
+
+
+<h2>{{ page.title }}</h2>
+<pre>
+
+
+
+select date_add("2008-08-02 00:00:00",interval '2' DAY)
+select date_add("2008-08-02",interval '2' DAY)
+select date_add("20080802",interval '2' DAY)
+
+可以对日期字段进行按天加减操作
+
+
+FROM_UNIXTIME( pppoe_tmp3.PPPOE_UPTIME/1000, '%Y_%m%d_%H:%m:%s' ) as UPTIME_DATE_FROMPPPOE
+
+可以对数字时间戳 变化为日期及时间字段
+
+
+
+</pre>
+
+<p>{{ page.date | date_to_string }}</p>
