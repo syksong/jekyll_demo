@@ -1,0 +1,22 @@
+---
+layout: default
+title: qt widget 模态及回收
+---
+
+
+<h2>{{ page.title }}</h2>
+<pre>
+
+
+BluetoothSearch::BluetoothSearch(QWidget *parent) :
+    QWidget(parent),
+    ui(new Ui::BluetoothSearch)
+{
+    this->setAttribute(Qt::WA_ShowModal, true);//以模态框显示
+    this->setAttribute(Qt::WA_DeleteOnClose);//关闭后释放资源
+    ui->setupUi(this);
+}
+
+</pre>
+
+<p>{{ page.date | date_to_string }}</p>

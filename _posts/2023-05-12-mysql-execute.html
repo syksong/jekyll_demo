@@ -1,0 +1,24 @@
+---
+layout: default
+title: mysql execute 执行可变语句
+---
+
+
+<h2>{{ page.title }}</h2>
+<pre>
+
+
+--git
+SET @sql='select cati.上网 from cati limit 1';
+prepare s1 from @sql;
+EXECUTE s1;
+deallocate prepare s1;
+
+
+https://blog.51cto.com/u_5650011/5385541
+
+
+
+</pre>
+
+<p>{{ page.date | date_to_string }}</p>
