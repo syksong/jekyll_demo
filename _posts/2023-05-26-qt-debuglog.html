@@ -17,7 +17,7 @@ $ cat logfile.h
 #ifndef LOGFILE_H
 #define LOGFILE_H
 
-#include <QObject>
+#include \<QObject>
 //#include "interfacecfg.h"
 
 class LogFile : public QObject
@@ -37,10 +37,10 @@ wx@DESKTOP-VVM0ROP MINGW64 ~/Desktop/
 $ cat logfile.cpp
 #include "logfile.h"
 
-#include <QDateTime>
-#include <QFile>
-#include <QMutex>
-#include <QTextStream>
+#include \<QDateTime>
+#include \<QFile>
+#include \<QMutex>
+#include \<QTextStream>
 
 enum LogLeaver{
     Fatal =0,
@@ -101,7 +101,7 @@ void LogFile::myMessageOutPut(QtMsgType type, const QMessageLogContext &context,
     logfile.open(QIODevice::WriteOnly | QIODevice::Append);
     if(strOutStream !=""){
         QTextStream logStream(&logfile);
-        logStream<<strOutStream<<"\r\n";
+        logStream\< \<strOutStream\<<"\r\n";
     }
 
     //清除缓存文件，解锁
@@ -113,7 +113,7 @@ void LogFile::myMessageOutPut(QtMsgType type, const QMessageLogContext &context,
 wx@DESKTOP-VVM0ROP MINGW64 ~/Desktop/
 $ cat main.cpp
 #include "widget.h"
-#include <QApplication>
+#include \<QApplication>
 //#include "newwidget.h"
 //#include "tcpclient.h"
 //#include "TxtToPcm.h"
@@ -122,11 +122,11 @@ $ cat main.cpp
 #include "loginwidget.h"
 //#include"wmthread.h"
 
-#include<QCoreApplication>
-#include<QAudioFormat>
-#include<QAudioOutput>
-#include<QThread>
-#include<QLoggingCategory>
+#include\<QCoreApplication>
+#include\<QAudioFormat>
+#include\<QAudioOutput>
+#include\<QThread>
+#include\<QLoggingCategory>
 
 int main(int argc, char *argv[])
 {
