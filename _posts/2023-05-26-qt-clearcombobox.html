@@ -1,0 +1,38 @@
+---
+layout: default
+title: qt combobox清理
+---
+
+
+<h2>{{ page.title }}</h2>
+<pre>
+
+
+
+git--删除下拉框
+combo1.removeitem idx
+idx是想要移除的编号
+第一项是0，第二项是1，类推
+也可以人工设置idx，比如
+combo1.additem "a",0
+这时combo1.removeitem 0
+就把"a"这一项清除了
+编号从0开始由小到大
+combo1.clear
+
+aaaa
+
+            for(int i=0;i<this->ui->comboBox_videoDeviceid->count();i++){
+                this->ui->comboBox_videoDeviceid->removeItem(i);
+            }
+            this->ui->comboBox_videoDeviceid->clear();
+            this->ui->comboBox_videoDeviceid->addItem("NONE");
+            for(int i=0;i<showStrList.count();i++){
+                this->ui->comboBox_videoDeviceid->addItem(showStrList[i]);
+            }
+            this->ui->comboBox_videoDeviceid->setCurrentIndex(0);
+
+
+</pre>
+
+<p>{{ page.date | date_to_string }}</p>

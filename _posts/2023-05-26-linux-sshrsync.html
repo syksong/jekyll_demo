@@ -1,0 +1,27 @@
+---
+layout: default
+title: linux rsync 同步数据 selinux iptables
+---
+
+
+<h2>{{ page.title }}</h2>
+<pre>
+
+
+git--
+https://www.dovov.com/rsyncssh.html
+
+sshpass -p "password" rsync -avzh -e 'ssh -p PORT312' root@192.xx.xxx.xxx:/dir_on_host/
+
+rsync -azP -e "ssh -p 2121" /path/to/files/source user@remoteip:/path/to/files/destination
+
+setenforce 0
+/sbin/iptables -I INPUT -p tcp --dport 8080 -j ACCEPT
+
+iptables -nv -L
+
+sshpass -p "wxpassword" rsync -e 'ssh -p9088' -avz  /var/log rsyncadmin@localhost:/backup/wxlog
+
+</pre>
+
+<p>{{ page.date | date_to_string }}</p>

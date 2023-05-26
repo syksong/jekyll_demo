@@ -1,0 +1,123 @@
+---
+layout: default
+title: sql 一种格式化sql生成输入json方法
+---
+
+
+<h2>{{ page.title }}</h2>
+<pre>
+
+$ cat dispatch.csv
+name,person,vol1,vol2,vol3,vol4,vol5,vol6,vol7,vol8,vol9,vol10,vol11,vol12,vol13,vol14,vol15,vol16,vol17,vol18,vol19,vol20
+pppoe,muhan,账号1,列1,列2,,,,,,,,,,,,,,,,,
+crm,song,账号2,名称2,,,,,,,,,,,,,,,,,,
+
+git--生成输入表信息
+select 
+    CONCAT("{\"tables\": [",
+        b.alltables,
+        "]}") as result
+from
+(
+    select 
+        GROUP_CONCAT(a.onetable) as alltables
+    from
+    (
+        select concat(
+        "{",
+        "\"name\": \"",
+        dispatch.`name`,
+        "_${datetime}\",",
+        "\"person\": \"",
+        dispatch.person,
+        "\",",
+        "\"sections\": [",
+           #must have one line
+            "{\"colName\": \"",
+          dispatch.vol1,
+          "\",",
+          "\"colType\": \"varchar\",\"colLength\": 255}",
+          
+          #repeat
+          if(dispatch.vol2 is NULL,"",
+              CONCAT(
+                ",{\"colName\": \"",
+                  dispatch.vol2,
+                  "\",",
+                  "\"colType\": \"varchar\",\"colLength\": 255}"
+            )
+          ),
+          #repeat
+          if(dispatch.vol3 is NULL,"",
+              CONCAT(
+                ",{\"colName\": \"",
+                  dispatch.vol3,
+                  "\",",
+                  "\"colType\": \"varchar\",\"colLength\": 255}"
+            )
+          ),
+          #repeat
+          if(dispatch.vol4 is NULL,"",
+              CONCAT(
+                ",{\"colName\": \"",
+                  dispatch.vol4,
+                  "\",",
+                  "\"colType\": \"varchar\",\"colLength\": 255}"
+            )
+          ),
+          #repeat
+          if(dispatch.vol5 is NULL,"",
+              CONCAT(
+                ",{\"colName\": \"",
+                  dispatch.vol5,
+                  "\",",
+                  "\"colType\": \"varchar\",\"colLength\": 255}"
+            )
+          ),
+          #repeat
+          if(dispatch.vol6 is NULL,"",
+              CONCAT(
+                ",{\"colName\": \"",
+                  dispatch.vol6,
+                  "\",",
+                  "\"colType\": \"varchar\",\"colLength\": 255}"
+            )
+          ),
+          #repeat
+          if(dispatch.vol7 is NULL,"",
+              CONCAT(
+                ",{\"colName\": \"",
+                  dispatch.vol7,
+                  "\",",
+                  "\"colType\": \"varchar\",\"colLength\": 255}"
+            )
+          ),
+          #repeat
+          if(dispatch.vol8 is NULL,"",
+              CONCAT(
+                ",{\"colName\": \"",
+                  dispatch.vol8,
+                  "\",",
+                  "\"colType\": \"varchar\",\"colLength\": 255}"
+            )
+          ),
+          #repeat
+          if(dispatch.vol9 is NULL,"",
+              CONCAT(
+                ",{\"colName\": \"",
+                  dispatch.vol9,
+                  "\",",
+                  "\"colType\": \"varchar\",\"colLength\": 255}"
+            )
+          ),
+          
+     "]",
+     "}") 
+     as onetable
+     from dispatch
+    ) a
+) b
+
+</pre>
+
+<p>{{ page.date | date_to_string }}</p>

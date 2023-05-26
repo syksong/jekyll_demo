@@ -1,0 +1,23 @@
+---
+layout: default
+title: qt string splt
+---
+
+
+<h2>{{ page.title }}</h2>
+<pre>
+
+
+
+  QStringList list=Service.split('-');
+    if(list.size()!=5)
+        return -1;
+    QByteArray str_0 = list[0].toLatin1();
+    QByteArray str_1 = list[1].toLatin1();
+    QByteArray str_2 = list[2].toLatin1();
+    QByteArray str_3 = list[3].toLatin1();
+    QByteArray str_4 = list[4].toLatin1();
+
+</pre>
+
+<p>{{ page.date | date_to_string }}</p>

@@ -1,0 +1,21 @@
+---
+layout: default
+title: sql 动态生成执行sql语句
+---
+
+
+<h2>{{ page.title }}</h2>
+<pre>
+
+git--生成最新view，有关公共库问题
+drop view if exists outviewzhicha;
+SET @sql=(SELECT concat(" create view outviewzhicha as select * from zhicha.",table_name) 
+FROM INFORMATION_SCHEMA.TABLES where table_schema='zhicha' and table_name like '%view%' order BY table_name desc limit 1);
+prepare s1 from @sql;
+EXECUTE s1;
+deallocate prepare s1;
+
+
+</pre>
+
+<p>{{ page.date | date_to_string }}</p>

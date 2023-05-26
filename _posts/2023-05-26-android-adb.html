@@ -1,0 +1,25 @@
+---
+layout: default
+title: android adb 
+---
+
+
+<h2>{{ page.title }}</h2>
+<pre>
+
+adb connect 192.168.1.22
+
+
+adb remount
+
+adb push libpcap.so /tmp/
+
+adb push cm.lua /tmp/
+
+adb shell
+ps |grep pcap
+logcat|grep song2023
+
+</pre>
+
+<p>{{ page.date | date_to_string }}</p>

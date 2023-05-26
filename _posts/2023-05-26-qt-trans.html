@@ -1,0 +1,23 @@
+---
+layout: default
+title: qt int string 转换
+---
+
+
+<h2>{{ page.title }}</h2>
+<pre>
+
+git--qt转换 int string
+QString str;
+    int i=100;
+    str=QString::number(i,10);    //int转换成字符串
+    //参数2 转化后的进制--默认10进制
+    double ii=87.65;
+    str=QString::number(ii); //double转换成字符串
+    long iii=234567;
+    str=QString::number(iii); //long转换成字符串
+
+
+</pre>
+
+<p>{{ page.date | date_to_string }}</p>

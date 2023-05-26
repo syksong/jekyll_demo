@@ -1,0 +1,161 @@
+---
+layout: default
+title: qt debug log
+---
+
+
+<h2>{{ page.title }}</h2>
+<pre>
+
+qDebug()<<__FILE__<<","<<__LINE__<<","<<__func__<<","<<__DATE__<<","<<__TIME__;
+
+
+----
+
+$ cat logfile.h
+
+#ifndef LOGFILE_H
+#define LOGFILE_H
+
+#include <QObject>
+//#include "interfacecfg.h"
+
+class LogFile : public QObject
+{
+    Q_OBJECT
+public:
+    explicit LogFile(QObject *parent = nullptr);
+
+    static const int LogType = 4;    //日志文件等级初始化设置
+public slots:
+    static void myMessageOutPut(QtMsgType type,const QMessageLogContext &context,const QString &msg);
+};
+
+#endif // LOGFILE_H
+
+wx@DESKTOP-VVM0ROP MINGW64 ~/Desktop/
+$ cat logfile.cpp
+#include "logfile.h"
+
+#include <QDateTime>
+#include <QFile>
+#include <QMutex>
+#include <QTextStream>
+
+enum LogLeaver{
+    Fatal =0,
+    Critical,
+    Warning,
+    Info,
+    Debug
+};
+
+
+LogFile::LogFile(QObject *parent) : QObject(parent)
+{
+
+}
+
+void LogFile::myMessageOutPut(QtMsgType type, const QMessageLogContext &context, const QString &msg)
+{
+    //加锁：避免对文件的同时读写
+    static QMutex mutex;
+    mutex.lock();
+    //独写消息
+    QByteArray localMsg = msg.toLocal8Bit();
+    //输出的字符串
+    QString strOutStream ="";
+    //case 生成要求格式日志文件，加日志等级过滤
+    switch (type) {
+    case QtDebugMsg:
+        if(LogType == Debug){
+            strOutStream = QString("%1 %2 %3 %4 [Debug]: %5 \n").arg(QDateTime::currentDateTime().toString("yyyy-MM-dd hh:mm:ss")).arg(QString(context.file)).arg(context.line).arg(QString(context.function)).arg(QString(localMsg));
+        }
+        break;
+    case QtInfoMsg:
+        if(LogType>= Info){
+            strOutStream = QString("%1 %2 %3 %4 [Info]: %5 \n").arg(QDateTime::currentDateTime().toString("yyyy-MM-dd hh:mm:ss")).arg(QString(context.file)).arg(context.line).arg(QString(context.function)).arg(QString(localMsg));
+        }
+        break;
+    case QtWarningMsg:
+        if(LogType >=Warning){
+            strOutStream = QString("%1 %2 %3 %4 [Warning]: %5 \n").arg(QDateTime::currentDateTime().toString("yyyy-MM-dd hh:mm:ss")).arg(QString(context.file)).arg(context.line).arg(QString(context.function)).arg(QString(localMsg));
+        }
+        break;
+    case QtCriticalMsg:
+        if(LogType >= Critical){
+            strOutStream = QString("%1 %2 %3 %4 [Critical]: %5 \n").arg(QDateTime::currentDateTime().toString("yyyy-MM-dd hh:mm:ss")).arg(QString(context.file)).arg(context.line).arg(QString(context.function)).arg(QString(localMsg));
+        }
+        break;
+    case QtFatalMsg:
+        if(LogType >= Fatal){
+            strOutStream = QString("%1 %2 %3 %4 [Fatal]: %5 \n").arg(QDateTime::currentDateTime().toString("yyyy-MM-dd hh:mm:ss")).arg(QString(context.file)).arg(context.line).arg(QString(context.function)).arg(QString(localMsg));
+        }
+        break;
+        //abort();
+    }
+
+    //生成一个新的log日志文件，文件名 yyyyMMdd.txt
+    QString strFileName = QString("%1.txt").arg(QDateTime::currentDateTime().date().toString("yyyyMMdd"));
+    QFile logfile(strFileName);
+    logfile.open(QIODevice::WriteOnly | QIODevice::Append);
+    if(strOutStream !=""){
+        QTextStream logStream(&logfile);
+        logStream<<strOutStream<<"\r\n";
+    }
+
+    //清除缓存文件，解锁
+    logfile.flush();
+    logfile.close();
+    mutex.unlock();
+}
+
+wx@DESKTOP-VVM0ROP MINGW64 ~/Desktop/
+$ cat main.cpp
+#include "widget.h"
+#include <QApplication>
+//#include "newwidget.h"
+//#include "tcpclient.h"
+//#include "TxtToPcm.h"
+//#include"tcpserver.h"
+#include"logfile.h"
+#include "loginwidget.h"
+//#include"wmthread.h"
+
+#include<QCoreApplication>
+#include<QAudioFormat>
+#include<QAudioOutput>
+#include<QThread>
+#include<QLoggingCategory>
+
+int main(int argc, char *argv[])
+{
+    //启动log文件
+    qInstallMessageHandler(LogFile::myMessageOutPut);
+    QLoggingCategory::setFilterRules(QStringLiteral("qt.bluetooth* = true"));
+
+    QApplication a(argc, argv);
+    LoginWidget w;
+    w.show();
+
+    //for tcpserver test
+    //TcpServer *tcpServer = new TcpServer;
+    //tcpServer->ConnectorClient();
+
+//    //tcpServer->sendFileData();//syk0311
+
+//   tcpCLient *t = new tcpCLient;
+//   t->Client();
+    //WMThread *thread1 = new WMThread;
+    //thread1->Start();
+
+    return a.exec();
+}
+
+
+
+
+
+</pre>
+
+<p>{{ page.date | date_to_string }}</p>
