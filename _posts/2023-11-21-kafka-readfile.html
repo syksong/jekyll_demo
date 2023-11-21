@@ -1,0 +1,66 @@
+---
+layout: default
+title: kafka导入文件，监控退出问题
+---
+
+
+<h2>{{ page.title }}</h2>
+<pre>
+
+
+cat kafka_push.sh 
+#!/bin/bash
+
+# 读取配置文件,获取topic
+config=/root/script/kafka_topic.config
+declare -A topics
+while IFS='=' read -r path topic; do
+  topics["$path"]=$topic
+done < $config
+
+# 要监控的目录
+WATCH_DIR=/sjzx/sjzx/data/NETWORK/*
+
+
+        # 开始监控
+
+inotifywait  -m -r -e  create --format '%w%f' ${WATCH_DIR} |
+while [ 1 ] ; do
+  while read FILEPATH
+  do
+                sleep 5
+                echo "---------------------------------------------START-------------------------------------------------------------------"
+                echo "New file detected,Start push kafka: ${FILEPATH} 当前时间是：$(date +"%Y-%m-%d %H:%M:%S")"
+                FOLDERNAME=$(basename $(dirname $FILEPATH))
+                table_name=${FOLDERNAME}
+                file_path=${FILEPATH}
+                echo $file_path
+                kafka_topic=$(echo "$file_path" | awk -F "/" '{print $5"/"$6"/"$7"/"$8}')
+                echo $kafka_topic
+                topic=${topics["$kafka_topic"]}
+                echo "push topic:" ${topic}
+                echo "push path:" ${file_path}
+                #/opt/module/kafka/bin/kafka-console-producer.sh --broker-list cluster1:9092,cluster2:9092,cluster3:9092 --topic ${topic} < ${file_path}
+                echo "-----------------------------------------------END-------------------------------------------------------------------"
+  done
+  echo err>>/tmp/testinotify
+  date>>/tmp/testinotify
+  sleep 2
+done
+[root@cluster01 ~/script]#  cat kafka_topic.config
+NETWORK/HN/STB/ALARM=ods_stb_alarm
+NETWORK/HN/STB/OPEN=ods_stb_boot
+NETWORK/HN/STB/PERIODIC=ods_stb_preiodic
+NETWORK/HN/STB/PROGRAM=ods_stb_programinfo
+NETWORK/HN/HBU/ALARM=ods_hgu_alarm
+NETWORK/HN/HBU/OPEN=ods_hgu_boot
+NETWORK/HN/HBU/DIAGNOSE=ods_hgu_diagnose
+NETWORK/HN/HBU/PERIODIC=ods_hgu_preiodic
+NETWORK/HN/RADIUS=ods_radius
+NETWORK/HN/PPPOE=ods_pppoe
+[root@cluster01 ~/script]#
+
+
+</pre>
+
+<p>{{ page.date | date_to_string }}</p>

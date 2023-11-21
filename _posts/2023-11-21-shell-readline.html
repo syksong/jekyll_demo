@@ -1,0 +1,32 @@
+---
+layout: default
+title: readline 从前面 从后面
+---
+
+
+<h2>{{ page.title }}</h2>
+<pre>
+
+(base) [root@cdh02 startScript]# cat /tmp/a.txt
+aaaaaa
+aaaaaa
+bbbb
+bbbb
+ccc
+ccc
+(base) [root@cdh02 startScript]# cat /tmp/test.sh
+sed -n '1!p' /tmp/a.txt|while read line
+do
+echo $line
+done
+
+
+while read line
+do
+echo $line
+done xiaoyu /tmp/a.txt
+
+
+</pre>
+
+<p>{{ page.date | date_to_string }}</p>

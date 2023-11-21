@@ -1,0 +1,34 @@
+---
+layout: default
+title: clickhouse 副本恢复
+---
+
+
+<h2>{{ page.title }}</h2>
+<pre>
+1，在正常的副本下，查看metadata的sql语句，执行创建
+
+ATTACH DATABASE tutorial UUID 'e924326c-fa1a-42c9-9ced-433e1ed4dc06'
+ENGINE = Atomic
+
+ATTACH TABLE test_local UUID '5658c8b5-fc9b-42b0-ba6c-276538cc6b1b'
+(
+ `id` Int32,
+ `name` String
+)
+ENGINE = MergeTree
+ORDER BY id
+SETTINGS index_granularity = 8192
+
+ATTACH TABLE test_all UUID '172a8d41-1a70-499d-a9fd-2098477daff6'
+(
+ `id` Int32,
+ `name` String
+)
+ENGINE = Distributed('cluster_2s2r', 'tutorial', 'test_local', rand())
+
+2,复制数据和创建链接
+
+</pre>
+
+<p>{{ page.date | date_to_string }}</p>
