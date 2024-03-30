@@ -1,0 +1,19 @@
+---
+layout: default
+title: vscode gitlab修改日期
+---
+
+
+<h2>{{ page.title }}</h2>
+<pre>
+
+git rebase -i --root
+git commit --amend --date="2019-09-02T13:45:15"
+git rebase --continue
+
+$ git push --force
+
+
+</pre>
+
+<p>{{ page.date | date_to_string }}</p>

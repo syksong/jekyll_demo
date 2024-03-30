@@ -1,0 +1,17 @@
+---
+layout: default
+title: 文本字符替换
+---
+
+
+<h2>{{ page.title }}</h2>
+<pre>
+
+"AlarmText":"{\"alarmSeq\":12918463}" 变成"AlarmText":{\"alarmSeq\":12918463}
+{前面的双引号，和}后面的双引号剔除掉
+String regex = "\"(?=\\{) | (?<=\\})\"";
+
+
+</pre>
+
+<p>{{ page.date | date_to_string }}</p>

@@ -1,0 +1,17 @@
+---
+layout: default
+title: esxi 虚机及mac查询
+---
+
+
+<h2>{{ page.title }}</h2>
+<pre>
+
+[root@localhost:~] vim-cmd vmsvc/getallvms
+vim-cmd vmsvc/device.getdevices 13|grep macAddress
+vim-cmd vmsvc/device.getdevices 12|grep macAddress
+
+
+</pre>
+
+<p>{{ page.date | date_to_string }}</p>
