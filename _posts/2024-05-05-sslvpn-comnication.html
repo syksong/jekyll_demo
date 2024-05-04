@@ -1,0 +1,27 @@
+---
+layout: default
+title: sslvpn 外部人员间如何通信
+---
+
+
+<h2>{{ page.title }}</h2>
+<pre>
+
+git
+点到点vpn通信
+https://support.huawei.com/enterprise/zh/knowledge/EKB1000140311?idAbsPath=24030814|9856724|21430823|21100508|8661805|
+
+<sysname> system-view
+[sysname] v-gateway gateway
+[sysname-gateway] service
+[sysname-gateway-service] network-extension point-to-point enable
+启用网络扩展的点对点通讯功能后,如果客户端路由方式采用手动模式,请将SSL VPN虚拟IP地址池包含在手动模式的IP网段中:
+
+<sysname> system-view
+[sysname] v-gateway gateway
+[sysname-gateway] service
+[sysname-gateway-service] network-extension manual-route 10.10.10.0 255.255.255.0       //10.10.10.0/24是SSL VPN的虚拟IP地址池
+
+</pre>
+
+<p>{{ page.date | date_to_string }}</p>

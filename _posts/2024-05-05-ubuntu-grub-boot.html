@@ -1,0 +1,48 @@
+---
+layout: default
+title: ubuntu grub select
+---
+
+
+<h2>{{ page.title }}</h2>
+<pre>
+
+
+grep menuentry /boot/grub/grub.cfg
+
+2、找到 GRUB DEFAULT 行:
+在打开的 /etc/default/grub 文件中，找到名为“GRUB DEFAULT”的行。该行定义了默认启动的内核。默认情况下，它通常设置为“0”表示选择第一个内核。
+3、更改默认内核根据你想要设置为默认启动的内核，将 GRUB DEFAULT 的值进行修改。内核列表是从0开始索引的，因此第一个内核的索引为"0”，第二个内核为"1”，依此类推,
+例如，如果你想要将第二个内核设置为默认启动，将 GRUB DEFAULT 的值更改为“1”，即:
+GRUB DEFAULT='1’
+另:如果开机选择内核目录为两层，则:
+GRUB DEFAULT='1->4
+表示选择第二个选项里面的第五个内核
+保存和退出:按下 Ctrl +X键，然后输入“Y”以保存更改。更新引导配置:运行以下命令以更新引导配置文件，使更改生效:
+
+
+GRUB_TIMEOUT=5
+
+sudo update-grub
+
+
+systemctl set-default graphical.target
+
+root@localhost
+Removed symlink/etc/systemd/system/default.target
+created symlink from /etc/systemd/system/default,target to /usr/lib/systemd/system/graphical.target
+rootlocalhost~1# systemctl get-default
+
+ ##sudo systemctl isolate multi-user.target
+
+systemctl set-default multi-user.target
+
+systemctl get-default
+
+
+
+
+
+</pre>
+
+<p>{{ page.date | date_to_string }}</p>

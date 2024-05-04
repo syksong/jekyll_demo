@@ -1,0 +1,40 @@
+---
+layout: default
+title: huawei firewall session
+---
+
+
+<h2>{{ page.title }}</h2>
+<pre>
+
+
+display  firewall  session table  verbose  destination inside   11.101.2.1
+
+执行命令display firewall server-map查看Server MAP表中的源IP地址和目的IP地址。
+
+执行命令display current-configuration configuration policy-nat查看源NAT策略信息。
+
+223.72.55.44
+
+display ike sa
+
+display firewall session table verbose
+
+
+display ipsec policy
+
+display  ip routing-table 
+
+display ike peer brief
+
+https://support.huawei.com/enterprise/zh/knowledge/EKB1000028135
+
+display  firewall  session table  verbose  destination inside   11.101.2.1
+
+https://support.huawei.com/enterprise/zh/knowledge/EKB1000038611
+
+display  firewall  session table  verbose  destination outside 192.168.99.7
+
+</pre>
+
+<p>{{ page.date | date_to_string }}</p>
